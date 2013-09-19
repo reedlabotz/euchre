@@ -1,0 +1,10 @@
+package euchre
+
+const (
+	ACE_OF_SPADES = "A♠"
+	ACE_OF_HEARTS = "A♥"
+	ACE_OF_CLUBS = "A♦"
+	ACE_OF_DIAMONDS = "A♣"
+	DECK = [ACE_OF_SPADES, ACE_OF_HEARTS, ACE_OF_CLUBS, ACE_OF_DIAMONDS]
+)
+	
