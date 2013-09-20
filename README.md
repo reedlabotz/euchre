@@ -1,8 +1,6 @@
 Euchre
 ======
 
-***
-
 Client
 ------
 Install grunt and dependencies.
@@ -11,3 +9,8 @@ Install grunt and dependencies.
     npm install
     cd ..
     ```
+
+To build the cielnt
+   ```
+   grunt build
+   ```
