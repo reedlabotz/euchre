@@ -30,6 +30,7 @@ module.exports = function(grunt) {
 	    ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
 	src: {
 	    js: ['src/**/*.js', '<%= distdir %>/templates/**/*.js'],
+	    jsWatch: ['src/**/*.js'],
 	    html: ['src/index.html'],
 	    tpl: {
 		app: ['src/app/**/*.tpl.html']
@@ -98,11 +99,11 @@ module.exports = function(grunt) {
 	},
 	watch:{
 	    all: {
-		files:['<%= src.js %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
+		files:['<%= src.jsWatch %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
 		tasks:['default','timestamp']
 	    },
 	    build: {
-		files:['<%= src.js %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
+		files:['<%= src.jsWatch %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
 		tasks:['build','timestamp']
 	    }
 	},
