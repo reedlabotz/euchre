@@ -1,98 +1,16 @@
-<!doctype html>
-<html ng-app>
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
 <head>
-  <title>Euchre</title>
-  <link rel="stylesheet" type="text/css" href="euchre.css">
+  <link rel="stylesheet" type="text/css" href="<%= grunt.config.get('pkg.name') %>.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <script type="text/javascript" src="<%= grunt.config.get('pkg.name') %>.js"></script>
 </head>
+
 <body ng-controller="AppCtrl">
   <div id="loading" class="loading" ng-show="loading">
     <img src="img/load.gif">
     <p>Loading</p>
   </div>
-  <div class="container">
-    <div class="board" id="board">
-      <div class="top">
-	<div>
-	  <div>{{game.Teams[0].Players[1].Name}}</div>
-	  <div  ng-repeat="card in game.Teams[0].Players[1].Hand"
-		class="card">{{ card }}A&spades;</div>
-	</div>
-      </div>
-      <div class="middle">
-	<div class="left">
-	  <div class="player-container">
-	    <div>{{game.Teams[1].Players[0].Name}}</div>
-	    <div  ng-repeat="card in game.Teams[1].Players[0].Hand"
-		  class="card">{{ card }}A&spades;</div>
-	  </div>
-	</div>
-	<div class="center" id="center">
-      	  <div class="table">
-	    <div class="card spade">A&spades;</div>
-	    <div class="card spade">A&spades;</div>
-	    <div class="card heart">A&hearts;</div>
-	    <div class="card club">A&clubs;</div>
-	  </div>
-	</div>
-	<div class="right" id="player2">
-	  <div>{{game.Teams[1].Players[1].Name}}</div>
-	  <div  ng-repeat="card in game.Teams[1].Players[1].Hand"
-		class="card">{{ card }}A&spades;</div>
-	</div>
-      </div>
-      <div class="bottom">
-	<div id="player0">
-	  <div>{{game.Teams[0].Players[0].Name}}</div>
-	  <div  ng-repeat="card in game.Teams[0].Players[0].Hand"
-		class="card">{{ card }}A&spades;</div>
-	</div>
-      </div>
-    </div>
-    <div class="side-bar">
-      <div class="trump-box">
-	<h2>Trump</h2>
-	<div class="card heart">2&hearts;</div>
-      </div>
-      <div class="score-box" ng-repeat="team in game.Teams">
-	<h2>{{ team.Players[0].Name }}/{{ team.Players[1].Name }}</h2>
-	<div class="card">{{team.Score}}</div>
-      </div>
-    </div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-  <script src="euchre.js"></script>
+  <div class="container" ng-view></div>
 </body>
 </html>
-
-<script>
-  var socket;
-
-  function connectToSocket(){
-    message.disabled = true;
-    var hash = window.location.hash.substring(1);
-    if (hash.length > 1) {
-      socket = new WebSocket("ws://euchre.reedlabotz.com/api/" + hash);
-      socket.onmessage = function(m) {
-        console.log(m);
-      }
-      socket.onopen = function(m) {
-        message.disabled = false;
-        console.log("Socket opened");
-      }
-      socket.onclose = function() {
-        console.warn("Socket closed");
-        connectToSocket();
-      }
-    }
-  }
-
-  function sendMessage() {
-    console.log("sending message", message.value);
-    socket.send(message.value);
-    return false;
-  }
-
-  document.addEventListener('DOMContentLoaded',function() {
-    connectToSocket();
-  });
-</script>

@@ -1,6 +1,6 @@
 angular.module('game', [])
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/game', {
+        $routeProvider.when('/game/:id', {
             templateUrl:'game/game.tpl.html',
             controller:'GameCtrl'
         });

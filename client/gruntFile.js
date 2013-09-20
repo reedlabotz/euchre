@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         html2js: { 
             app:  {
                 options:  {
-                    base: 'src/app '
+                    base: 'src/app'
                 } ,
                 src: ['<%= src.tpl.app %>'] ,
                 dest: '<%= distdir %>/templates/app.js' ,
