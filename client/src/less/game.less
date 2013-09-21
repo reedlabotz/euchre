@@ -1,0 +1,81 @@
+
+.board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.side-bar {
+  flex: none;
+  background: #333;
+  padding: 20px;
+  border-left: 2px solid #000;
+
+  h2 {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .card {
+    margin: auto;
+  }
+}
+
+.top, .bottom {
+  flex: none;
+  margin: auto;
+}
+
+.middle {
+  flex: 1;
+  display: flex;
+
+  .center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    .table {
+      margin: auto;
+    }
+  }
+
+  .left, .right {
+    flex: none;
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  height: 60px;
+  width: 35px;
+  text-align: center;
+  line-height: 55px;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Times;  
+}
+
+.card.spade, .card.club {
+  color: #000;
+}
+
+.card.heart, .card.diamond {
+  color: #DD2E2E;
+}
+
+.top .card, .bottom .card {
+  display: inline-block;
+}
+
+.middle .card {
+  height: 35px;
+  width: 60px;
+}

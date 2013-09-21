@@ -1,5 +1,6 @@
 angular.module('app', [
     'game',
+    'welcome',
     'templates.app']);
 
 angular.module('app').config(['$routeProvider', function ($routeProvider) {
