@@ -15,3 +15,8 @@ To build the cielnt
 ```
 grunt build
 ```
+
+
+Links
+-----
+https://code.google.com/p/vectorized-playing-cards/

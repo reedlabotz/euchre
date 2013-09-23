@@ -4,7 +4,7 @@
       <div>
         <div>{{game.Teams[0].Players[1].Name}}</div>
         <div  ng-repeat="card in game.Teams[0].Players[1].Hand"
-              class="card">{{ card }}A&spades;</div>
+              class="card"></div>
       </div>
     </div>
     <div class="middle">
@@ -12,35 +12,35 @@
         <div class="player-container">
           <div>{{game.Teams[1].Players[0].Name}}</div>
           <div  ng-repeat="card in game.Teams[1].Players[0].Hand"
-                class="card">{{ card }}A&spades;</div>
+                class="card"></div>
         </div>
       </div>
       <div class="center" id="center">
         <div class="table">
-          <div class="card spade">A&spades;</div>
-          <div class="card spade">A&spades;</div>
-          <div class="card heart">A&hearts;</div>
-          <div class="card club">A&clubs;</div>
+          <div class="card spade"></div>
+          <div class="card spade"></div>
+          <div class="card heart"></div>
+          <div class="card club"></div>
         </div>
       </div>
       <div class="right" id="player2">
         <div>{{game.Teams[1].Players[1].Name}}</div>
         <div  ng-repeat="card in game.Teams[1].Players[1].Hand"
-              class="card">{{ card }}A&spades;</div>
+              class="card"></div>
       </div>
     </div>
     <div class="bottom">
       <div id="player0">
         <div>{{game.Teams[0].Players[0].Name}}</div>
         <div  ng-repeat="card in game.Teams[0].Players[0].Hand"
-              class="card">{{ card }}A&spades;</div>
+              class="card"></div>
       </div>
     </div>
   </div>
   <div class="side-bar">
     <div class="trump-box">
       <h2>Trump</h2>
-      <div class="card heart">2&hearts;</div>
+      <div class="card heart"></div>
     </div>
     <div class="score-box" ng-repeat="team in game.Teams">
       <h2>{{ team.Players[0].Name }}/{{ team.Players[1].Name }}</h2>

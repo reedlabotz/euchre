@@ -47,35 +47,54 @@
   }
 }
 
+@cardHeight: 90px;
+@cardWidth: 64px;
 .card {
-  background: #fff;
+  background: url('img/sprite.png') #fff;
   border-radius: 5px;
-  padding: 10px;
   margin: 5px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  height: 60px;
-  width: 35px;
-  text-align: center;
-  line-height: 55px;
-  font-weight: bold;
-  font-size: 20px;
-  font-family: Times;  
-}
+  height: @cardHeight;
+  width: @cardWidth;
 
-.card.spade, .card.club {
-  color: #000;
-}
-
-.card.heart, .card.diamond {
-  color: #DD2E2E;
+  @cardOffsetY: -1 * @cardHeight;
+  @cardOffsetX: -1 * @cardWidth;
+  &.club {
+    background-position-y: @cardOffsetY * 0;
+  }
+  &.heart {
+    background-position-y: @cardOffsetY * 1;
+  }
+  &.spade {
+    background-position-y: @cardOffsetY * 2;
+  }
+  &.diamond {
+    background-position-y: @cardOffsetY * 3;
+  }
+  &.two {
+    background-position-x: @cardOffsetX * 1;
+  }
+  &.nine {
+    background-position-x: @cardOffsetX * 3;
+  }
+  &.ten {
+    background-position-x: @cardOffsetX * 4;
+  }
+  &.jack {
+    background-position-x: @cardOffsetX * 5;
+  }
+  &.queen {
+    background-position-x: @cardOffsetX * 6;
+  }
+  &.king {
+    background-position-x: @cardOffsetX * 7;
+  }
+  &.ace {
+    background-position-x: @cardOffsetX * 8;
+  }
 }
 
 .top .card, .bottom .card {
   display: inline-block;
-}
-
-.middle .card {
-  height: 35px;
-  width: 60px;
 }
