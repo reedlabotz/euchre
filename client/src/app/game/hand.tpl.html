@@ -1,0 +1,6 @@
+<div id="player0">
+  <div>{{player.Name}}</div>
+  <div  ng-repeat="card in player.Hand"
+        class="card"
+        ng-class="card | cardClasses"></div>
+</div>
