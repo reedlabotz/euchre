@@ -4,7 +4,7 @@ API
 Start Game
 ----------
 ```
-GET /api/game/new/:game_id
+POST /api/game/new/:game_id
 ```
 
 Error response:
