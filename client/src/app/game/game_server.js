@@ -4,7 +4,7 @@ gameServerModule.service('$GameServer', function() {
         var _this = this;
         this.connect = function() {
             var gameId = window.location.hash.substring(7);
-            var socketAddress = "ws://" + window.location.host + "/api/game/play/" + gameId;
+            var socketAddress = "ws://" + window.location.host + "/api/game/play/" + gameId + "/player/a/b/";
             socket = new WebSocket(socketAddress);
             socket.onmessage = function(m) {
                 console.log(m);

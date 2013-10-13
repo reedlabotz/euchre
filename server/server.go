@@ -5,6 +5,7 @@ import (
 	"code.google.com/p/go.net/websocket"
 	"net/http"
 	"log"
+	"github.com/gorilla/mux"
 )
 
 type Server struct {
@@ -20,16 +21,21 @@ func NewServer() *Server {
 }
 
 func (s *Server) Init() {
-	http.HandleFunc("/api/game/new/", func(w http.ResponseWriter, r *http.Request) {
+	r := mux.NewRouter()
+	r.HandleFunc("/api/game/new/{GameId}/player/", func(w http.ResponseWriter, r *http.Request) {
 		s.HandleNew(w, r)
-	})
-	http.HandleFunc("/api/game/join/", func(w http.ResponseWriter, r *http.Request) {
+	}).Methods("POST")
+	r.HandleFunc("/api/game/join/{GameId}/player/", func(w http.ResponseWriter, r *http.Request) {
 		s.HandleJoin(w, r)
-	})
-	http.Handle("/api/game/play/", websocket.Handler(
+	}).Methods("POST")
+	r.HandleFunc("/api/game/join/{GameId}/player/{PlayerPublicKey}/{PlayerPrivateKey}/", func(w http.ResponseWriter, r *http.Request) {
+		s.HandleJoin(w, r)
+	}).Methods("POST")
+	r.Handle("/api/game/play/{GameId}/player/{PlayerPublicKey}/{PlayerPrivateKey}/", websocket.Handler(
 		func(ws *websocket.Conn) {
 			s.HandlePlay(ws) 
 		}))
+	http.Handle("/", r)
 }
 
 func (S *Server) Run() {
@@ -40,6 +46,11 @@ func (S *Server) Run() {
 }
 
 func (s *Server) HandlePlay(ws *websocket.Conn) {
+	vars := mux.Vars(ws.Request())
+	log.Printf("Connection: %s [%s:%s]", vars["GameId"], vars["PlayerPublicKey"], vars["PlayerPrivateKey"])
+	count := time.Duration(10)*time.Second
+	ticker := time.NewTicker(count)
+	go ping(ticker, ws)
 	for {
 		var message string
 		err := websocket.Message.Receive(ws, &message)
@@ -51,12 +62,23 @@ func (s *Server) HandlePlay(ws *websocket.Conn) {
 	}
 }
 
-func (s *Server) HandleNew(w http.ResponseWriter, r *http.Request) {
+func ping(t *time.Ticker, ws *websocket.Conn) {
+	for {
+		select {
+		case <- t.C:
+			websocket.Message.Send(ws, "Hi")
+		}
+	}
+}
 
+func (s *Server) HandleNew(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	log.Printf("New game: %s", vars["GameId"])
 }
 
 func (s *Server) HandleJoin(w http.ResponseWriter, r *http.Request) {
-
+	vars := mux.Vars(r)
+	log.Printf("Join game: %s [%s:%s]", vars["GameId"], vars["PlayerPublicKey"], vars["PlayerPrivateKey"])
 }
 
 type Move struct {
