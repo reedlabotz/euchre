@@ -4,7 +4,7 @@ API
 Start Game
 ----------
 ```
-POST /api/game/new/:game_id
+POST /api/game/new/:game_id/player/:public_key/:private_key
 ```
 
 Error response:
@@ -28,7 +28,7 @@ Successs response:
 Join Game
 ---------
 ```
-POST /api/game/join/:game_id
+POST /api/game/join/:game_id/player/:public_key/:private_key
 ```
 
 Error response:
