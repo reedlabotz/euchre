@@ -4,11 +4,7 @@ import (
 	"time"
 	"code.google.com/p/go.net/websocket"
 	"net/http"
-	"net/url"
 	"log"
-	"errors"
-	"net"
-	"strings"
 )
 
 type Server struct {
@@ -24,14 +20,12 @@ func NewServer() *Server {
 }
 
 func (s *Server) Init() {
-	http.Handle("/api/game/new/", websocket.Handler(
-		func(ws *websocket.Conn) {
-			s.HandlePlay(ws) 
-		}))
-	http.Handle("/api/game/join/", websocket.Handler(
-		func(ws *websocket.Conn) {
-			s.HandlePlay(ws) 
-		}))
+	http.HandleFunc("/api/game/new/", func(w http.ResponseWriter, r *http.Request) {
+		s.HandleNew(w, r)
+	})
+	http.HandleFunc("/api/game/join/", func(w http.ResponseWriter, r *http.Request) {
+		s.HandleJoin(w, r)
+	})
 	http.Handle("/api/game/play/", websocket.Handler(
 		func(ws *websocket.Conn) {
 			s.HandlePlay(ws) 
@@ -46,13 +40,6 @@ func (S *Server) Run() {
 }
 
 func (s *Server) HandlePlay(ws *websocket.Conn) {
-	var gameId, err = getGameId(ws.LocalAddr())
-	if (err != nil) {
-		log.Printf("Bad connection")
-		ws.Close()
-		return
-	}
-	log.Printf("Connection to game: %s",gameId)
 	for {
 		var message string
 		err := websocket.Message.Receive(ws, &message)
@@ -64,16 +51,12 @@ func (s *Server) HandlePlay(ws *websocket.Conn) {
 	}
 }
 
-func getGameId(addr net.Addr) (string, error) {
-	var url, err = url.Parse(addr.String())
-	if (err != nil) {
-		return "", err
-	}
-	var parts = strings.Split(url.Path[1:], "/")
-	if (len(parts) < 3) {
-		return "", errors.New("Bad url path")
-	}
-	return strings.Split(url.Path[1:],"/")[3], nil
+func (s *Server) HandleNew(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (s *Server) HandleJoin(w http.ResponseWriter, r *http.Request) {
+
 }
 
 type Move struct {

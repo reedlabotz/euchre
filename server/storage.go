@@ -6,7 +6,6 @@ import (
 )
 
 type Storage struct {
-	ttl int                // Time to live in ms for a game
 	ticker *time.Ticker    // Cleanup channel
 	games map[string] Game // Make of GameIds to games
 }
@@ -14,17 +13,21 @@ type Storage struct {
 func NewStorage(ttl time.Duration) *Storage {
 	s := new(Storage)
 	s.ticker = time.NewTicker(ttl/2)
-	go s.Cleanup()
+	go s.InitCleanup()
 	return s
 }
 
-func (s *Storage) Cleanup() {
+func (s *Storage) InitCleanup() {
 	for {
 		select {
 		case <- s.ticker.C:
-			log.Printf("Running cleanup")
+			s.cleanup()
 		}
 	}
+}
+
+func (s *Storage) cleanup() {
+	log.Printf("Running cleanup")
 }
 
 func (s *Storage) GetGame(id string) (Game, error) {
