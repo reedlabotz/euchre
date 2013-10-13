@@ -1,13 +1,12 @@
-package euchre
+package main
 
 type Card int
-type Deck [24]Card
 type Hand []Card
 type Action int
 
 type Player struct {
 	Name string
-	Id uuid
+//	Id uuid
 	Hand Hand
 }
 
@@ -26,35 +25,3 @@ type Game struct {
 	Table []Move
 }
 
-type Move struct {
-	Player Player
-	Action Action
-	Card Card
-}
-
-type ClientMessageType int
-
-const (
-	HELLO ClientMessageType = 0
-	MOVE ClientMessageType = 1
-)
-
-type ClientMessage struct {
-	Type ClientMessageType
-	Move Move
-	GameHash string
-}
-
-type ServerMessageType int
-
-const (
-	GAME_REFRESH ServerMessageType = 0
-	MOVE ServerMessageType = 1
-)
-
-type ServerMessage struct {
-	Type ServerMessageType
-	Move Move
-	Game Game
-	GameHash string
-}

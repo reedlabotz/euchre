@@ -1,11 +1,12 @@
-var gameModule = angular.module('game', ['common']);
+var gameModule = angular.module('game', ['common','GameServer']);
 gameModule.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/game/:id', {
         templateUrl:'game/game.tpl.html',
         controller:'GameCtrl'
     });
 }]);
-gameModule.controller('GameCtrl', ['$scope', function($scope) {
+gameModule.controller('GameCtrl', ['$scope', '$GameServer', function($scope, $GameServer) {
+    $GameServer.connect();
     $scope.game = {
         Teams: [
             {
